@@ -3,6 +3,12 @@ SHELL := /bin/sh
 .SUFFIXES: # no special suffixes
 .DEFAULT_GOAL := default
 
+DOCKER_USER_ARGS = --user=$$(id --user):$$(id --group)
+DOCKER_IMAGE_EDITORCONFIG_CHECKER = mstruebing/editorconfig-checker:v3.0.1
+DOCKER_IMAGE_PHP_CS_FIXER = ghcr.io/php-cs-fixer/php-cs-fixer:3.54-php8.3
+PHP_CS_FIXER_DOCKER_RUN_ARGS = ${DOCKER_USER_ARGS} --volume=$$PWD:/code ${DOCKER_IMAGE_PHP_CS_FIXER}
+PHP_CS_FIXER_COMMON_ARGS = --verbose --show-progress=dots
+
 # dummy entry to force make to do nothing by default
 .PHONY: default
 default:
@@ -21,14 +27,14 @@ git_push_tags:
 # lint all files against EditorConfig settings
 .PHONY: lint_editorconfig
 lint_editorconfig:
-	docker container run --rm --user=$$(id --user):$$(id --group) --volume=$$PWD:/check mstruebing/editorconfig-checker:v3.0.1
+	docker container run --rm ${DOCKER_USER_ARGS} --volume=$$PWD:/check ${DOCKER_IMAGE_EDITORCONFIG_CHECKER}
 
 # lint PHP coding style
 .PHONY: lint_coding_style
 lint_coding_style:
-	docker container run --rm --user=$$(id --user):$$(id --group) --volume=$$PWD:/code ghcr.io/php-cs-fixer/php-cs-fixer:3.54-php8.3 check --verbose --show-progress=dots
+	docker container run --rm ${DOCKER_USER_ARGS} ${PHP_CS_FIXER_DOCKER_RUN_ARGS} check ${PHP_CS_FIXER_COMMON_ARGS}
 
 # fix PHP coding style
 .PHONY: fix_coding_style
 fix_coding_style:
-	docker container run --rm --user=$$(id --user):$$(id --group) --volume=$$PWD:/code ghcr.io/php-cs-fixer/php-cs-fixer:3.54-php8.3 fix --verbose --show-progress=dots
+	docker container run --rm ${DOCKER_USER_ARGS} --volume=$$PWD:/code ghcr.io/php-cs-fixer/php-cs-fixer:3.54-php8.3 fix --verbose --show-progress=dots
