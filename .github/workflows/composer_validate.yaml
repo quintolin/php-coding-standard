@@ -1,0 +1,14 @@
+name: Validate Composer File
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    name: Validate `composer.json` file
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate files
+        run: composer validate --strict --no-check-version
