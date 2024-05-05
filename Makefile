@@ -37,4 +37,4 @@ lint_coding_style:
 # fix PHP coding style
 .PHONY: fix_coding_style
 fix_coding_style:
-	docker container run --rm ${DOCKER_USER_ARGS} --volume=$$PWD:/code ghcr.io/php-cs-fixer/php-cs-fixer:3.54-php8.3 fix --verbose --show-progress=dots
+	docker container run --rm ${DOCKER_USER_ARGS} ${PHP_CS_FIXER_DOCKER_RUN_ARGS} fix ${PHP_CS_FIXER_COMMON_ARGS}
