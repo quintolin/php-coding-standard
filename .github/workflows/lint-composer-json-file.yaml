@@ -1,0 +1,9 @@
+name: 'lint-composer-json-file'
+on:
+  push:
+  pull_request:
+permissions:
+  contents: 'read'
+jobs:
+  main:
+    uses: 'quintolin/.github/.github/workflows/lint-composer-json-file.yaml@main'

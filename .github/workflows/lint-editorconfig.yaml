@@ -1,0 +1,9 @@
+name: 'lint-editorconfig'
+on:
+  push:
+  pull_request:
+permissions:
+  contents: 'read'
+jobs:
+  main:
+    uses: 'quintolin/.github/.github/workflows/lint-editorconfig.yaml@main'

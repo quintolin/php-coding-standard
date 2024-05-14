@@ -1,0 +1,9 @@
+name: 'lint-php-coding-style'
+on:
+  push:
+  pull_request:
+permissions:
+  contents: 'read'
+jobs:
+  main:
+    uses: 'quintolin/.github/.github/workflows/lint-php-coding-style.yaml@main'
