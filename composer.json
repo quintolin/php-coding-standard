@@ -1,6 +1,7 @@
 {
   "name": "quintolin/coding-standard",
   "description": "Coding standard for Quintolin files",
+  "version": "1.0.1",
   "type": "library",
   "keywords": [
     "quintolin",
