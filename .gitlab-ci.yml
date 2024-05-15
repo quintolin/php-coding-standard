@@ -1,15 +1,13 @@
+include:
+  project: 'quintolin/config-ci'
+  file: '.gitlab/lint.yml'
+  ref: 'main'
+
 lint-editorconfig:
-  image:
-    name: 'mstruebing/editorconfig-checker:v3.0.1'
-  interruptible: true
-  script:
-    - 'ec -verbose'
+  extends: '.lint-editorconfig'
 
 lint-php-coding-style:
-  image:
-    name: 'ghcr.io/php-cs-fixer/php-cs-fixer:3.49-php8.3'
-    entrypoint:
-      - ''
-  interruptible: true
-  script:
-    - 'php-cs-fixer check -vvv --format gitlab'
+  extends: '.lint-php-coding-style'
+
+lint-composer-json-file:
+  extends: '.lint-composer-json-file'
