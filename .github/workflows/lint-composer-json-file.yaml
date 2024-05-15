@@ -6,4 +6,4 @@ permissions:
   contents: 'read'
 jobs:
   main:
-    uses: 'quintolin/.github/.github/workflows/lint-composer-json-file.yaml@main'
+    uses: 'quintolin/config-ci/.github/workflows/lint-composer-json-file.yaml@main'
